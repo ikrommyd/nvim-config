@@ -1,2 +1,2 @@
-require('scylet')
+require("thescylet")
 
