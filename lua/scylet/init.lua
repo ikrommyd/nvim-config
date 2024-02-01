@@ -32,6 +32,15 @@ autocmd({"BufWritePre"}, {
     command = [[%s/\s\+$//e]],
 })
 
+autocmd({"BufWritePost"}, {
+    group =TheScyletGroup,
+    pattern = "*.py",
+    callback = function()
+        vim.cmd("silent !black --quiet %")
+        vim.cmd("edit")
+    end,
+})
+
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
