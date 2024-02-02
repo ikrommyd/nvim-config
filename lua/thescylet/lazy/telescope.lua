@@ -11,20 +11,38 @@ return {
         require('telescope').setup({})
 
         local builtin = require('telescope.builtin')
+        -- Global variable to store the last search term
+        _G.last_telescope_grep_search = nil
+
+        local function updateAndGrep(search_term)
+            _G.last_telescope_grep_search = search_term -- Store the search term
+            builtin.grep_string({ search = search_term })
+        end
+
         vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
         vim.keymap.set('n', '<leader>pg', builtin.git_files, {})
         vim.keymap.set('n', '<leader>pws', function()
             local word = vim.fn.expand("<cword>")
-            builtin.grep_string({ search = word })
+            updateAndGrep(word)
         end)
         vim.keymap.set('n', '<leader>pWs', function()
             local word = vim.fn.expand("<cWORD>")
-            builtin.grep_string({ search = word })
+            updateAndGrep(word)
         end)
         vim.keymap.set('n', '<leader>ps', function()
-            builtin.grep_string({ search = vim.fn.input("Grep > ") })
+            local search_term = vim.fn.input("Grep > ")
+            updateAndGrep(search_term)
         end)
         vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
+
+        -- New keymap for repeating the last grep search
+        vim.keymap.set('n', '<leader>pr', function()
+            if _G.last_telescope_grep_search then
+                builtin.grep_string({ search = _G.last_telescope_grep_search })
+            else
+                print("No previous search term stored.")
+            end
+        end)
     end
 }
 
