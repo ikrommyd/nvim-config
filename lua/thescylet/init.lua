@@ -48,11 +48,12 @@ autocmd({"BufWritePre"}, {
 })
 
 autocmd({"BufWritePost"}, {
-    group =TheScyletGroup,
+    group = TheScyletGroup,
     pattern = "*.py",
     callback = function()
-        vim.cmd("silent !black --quiet %")
-        vim.cmd("edit")
+        local filepath = vim.fn.expand('%:p') -- Get the full path of the current file
+        vim.cmd("silent !black --quiet \"" .. filepath .. "\"") -- Execute black on the file, ensuring the path is quoted
+        vim.cmd("edit") -- Refresh the buffer
     end,
 })
 
