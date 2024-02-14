@@ -52,8 +52,7 @@ autocmd({"BufWritePost"}, {
     pattern = "*.py",
     callback = function()
         local filepath = vim.fn.expand('%:p') -- Get the full path of the current file
-        vim.cmd("silent !black --quiet \"" .. filepath .. "\"") -- Execute black on the file, ensuring the path is quoted
-        vim.cmd("edit") -- Refresh the buffer
+        vim.cmd("silent !ruff format --quiet \"" .. filepath .. "\"") -- Execute black on the file, ensuring the path is quoted
     end,
 })
 
