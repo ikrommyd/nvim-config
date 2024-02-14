@@ -29,6 +29,8 @@ return {
                 "lua_ls",
                 "rust_analyzer",
                 "tsserver",
+                "clangd",
+                "pyright",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
