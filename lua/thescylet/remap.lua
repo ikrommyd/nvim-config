@@ -32,7 +32,28 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "<C-b>", "<cmd>silent !tmux neww tmux-windowizer<CR>")
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+
+vim.keymap.set("n", "<leader>f", function()
+    local filetype = vim.bo.filetype
+    if filetype == "python" then
+        -- Use ruff for formatting Python files
+        -- This assumes that you have configured ruff_lsp to be recognized and used for formatting.
+        -- You might need to adjust this command based on how ruff_lsp is configured in your setup.
+        local clients = vim.lsp.buf_get_clients()
+        for _, client in pairs(clients) do
+            if client.name == "ruff_lsp" then
+                -- Trigger formatting using ruff_lsp
+                vim.lsp.buf.format({ async = true, filter = function(client) return client.name == "ruff_lsp" end })
+                return
+            end
+        end
+        -- Fallback to default LSP formatting if ruff_lsp is not available
+        vim.lsp.buf.format({ async = true })
+    else
+        -- For non-Python files, just use the default LSP formatting
+        vim.lsp.buf.format({ async = true })
+    end
+end)
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
