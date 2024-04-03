@@ -30,8 +30,8 @@ return {
                 "rust_analyzer",
                 "tsserver",
                 "clangd",
-                "pylsp",
                 "ruff_lsp",
+                "pylsp",
             },
             handlers = {
                 function(server_name) -- default handler (optional)

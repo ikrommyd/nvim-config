@@ -47,14 +47,16 @@ autocmd({"BufWritePre"}, {
     command = [[%s/\s\+$//e]],
 })
 
-autocmd({"BufWritePost"}, {
-    group = TheScyletGroup,
-    pattern = "*.py",
-    callback = function()
-        local filepath = vim.fn.expand('%:p') -- Get the full path of the current file
-        vim.cmd("silent !ruff format --quiet \"" .. filepath .. "\"") -- Execute ruff on the file, ensuring the path is quoted
-    end,
-})
+-- autocmd({"BufWritePost"}, {
+--     group = TheScyletGroup,
+--     pattern = "*.py",
+--     callback = function()
+--         local filepath = vim.fn.expand('%:p') -- Get the full path of the current file
+--         vim.cmd("silent !ruff format --quiet \"" .. filepath .. "\"") -- Execute ruff on the file, ensuring the path is quoted
+--         vim.cmd("edit") -- Reload the file
+--     end,
+-- })
+
 
 autocmd('LspAttach', {
     group = TheScyletGroup,
