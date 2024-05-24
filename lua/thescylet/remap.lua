@@ -38,12 +38,12 @@ vim.keymap.set("n", "<leader>f", function()
     if filetype == "python" then
         -- Use ruff for formatting Python files
         -- This assumes that you have configured ruff_lsp to be recognized and used for formatting.
-        -- You might need to adjust this command based on how ruff_lsp is configured in your setup.
+        -- You might need to adjust this command based on how ruff is configured in your setup.
         local clients = vim.lsp.buf_get_clients()
         for _, client in pairs(clients) do
-            if client.name == "ruff_lsp" then
-                -- Trigger formatting using ruff_lsp
-                vim.lsp.buf.format({ async = true, filter = function(client) return client.name == "ruff_lsp" end })
+            if client.name == "ruff" then
+                -- Trigger formatting using ruff
+                vim.lsp.buf.format({ async = true, filter = function(client) return client.name == "ruff" end })
                 return
             end
         end
