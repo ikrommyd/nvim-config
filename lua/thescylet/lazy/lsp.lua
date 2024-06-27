@@ -31,7 +31,7 @@ return {
                 "tsserver",
                 "clangd",
                 "ruff",
-                -- "pylsp",
+                "pylsp",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -49,6 +49,34 @@ return {
                             Lua = {
                                 diagnostics = {
                                     globals = { "vim", "it", "describe", "before_each", "after_each" },
+                                }
+                            }
+                        }
+                    }
+                end,
+                ["pylsp"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.pylsp.setup {
+                        capabilities = capabilities,
+                        settings = {
+                            pylsp = {
+                                plugins = {
+                                    jedi_completion = {
+                                        fuzzy = true,
+                                    },
+                                    jedi_hover = {
+                                        enabled = true,
+                                    },
+                                    jedi_references = {
+                                        enabled = true,
+                                    },
+                                    jedi_signature_help = {
+                                        enabled = true,
+                                    },
+                                    jedi_symbols = {
+                                        enabled = true,
+                                        all_scopes = true,
+                                    },
                                 }
                             }
                         }
