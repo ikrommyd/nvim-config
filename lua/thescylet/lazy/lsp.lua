@@ -11,11 +11,14 @@ return {
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
         "j-hui/fidget.nvim",
+        "onsails/lspkind.nvim", -- Add lspkind for VS Code-like pictograms
     },
 
     config = function()
         local cmp = require('cmp')
         local cmp_lsp = require("cmp_nvim_lsp")
+        local lspkind = require("lspkind") -- Load lspkind
+
         local capabilities = vim.tbl_deep_extend(
             "force",
             {},
@@ -35,7 +38,6 @@ return {
             },
             handlers = {
                 function(server_name) -- default handler (optional)
-
                     require("lspconfig")[server_name].setup {
                         capabilities = capabilities
                     }
@@ -104,7 +106,14 @@ return {
                 { name = 'luasnip' }, -- For luasnip users.
             }, {
                 { name = 'buffer' },
-            })
+                { name = 'path' },
+            }),
+            formatting = { -- Add formatting with lspkind for VS Code-like pictograms
+                format = lspkind.cmp_format({
+                    maxwidth = 50,
+                    ellipsis_char = "...",
+                }),
+            },
         })
 
         vim.diagnostic.config({
@@ -120,3 +129,4 @@ return {
         })
     end
 }
+
