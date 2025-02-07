@@ -1,5 +1,5 @@
 function ColorMyPencils(color)
-	color = color or "gruvbox"
+	color = color or "onedark"
 	vim.cmd.colorscheme(color)
 
 	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -36,8 +36,18 @@ return {
               dim_inactive = false,
               transparent_mode = true,
             })
-            vim.cmd("colorscheme gruvbox")
 
+        end
+    },
+    {
+        "navarasu/onedark.nvim",
+        name = "onedark",
+        config = function()
+            require("onedark").setup({
+                styke = "dark",
+                transparent = true,
+                term_colors = true,
+            })
             ColorMyPencils()
         end
     },
