@@ -1,5 +1,5 @@
 function ColorMyPencils(color)
-	color = color or "onedark"
+	color = color or "rose-pine"
 	vim.cmd.colorscheme(color)
 
 	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -36,7 +36,7 @@ return {
               dim_inactive = false,
               transparent_mode = true,
             })
-
+            ColorMyPencils()
         end
     },
     {
@@ -47,6 +47,23 @@ return {
                 styke = "dark",
                 transparent = true,
                 term_colors = true,
+            })
+            ColorMyPencils()
+        end
+    },
+    {
+        "rose-pine/neovim",
+        name = "rose-pine",
+        config = function()
+            require("rose-pine").setup({
+                styles = {
+                    bold = true,
+                    italic = false,
+                    transparency = true,
+                },
+                highlight_groups = {
+                    Comment = { italic = true },
+                },
             })
             ColorMyPencils()
         end
