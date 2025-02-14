@@ -50,6 +50,7 @@ return {
         config = function()
             require("treesitter-context").setup({
                 separator = "-",
+                multiline_threshold = 1,
             })
         end
     }

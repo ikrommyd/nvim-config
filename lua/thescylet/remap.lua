@@ -77,3 +77,6 @@ end)
 
 vim.keymap.set("n", "<leader>nh", "<cmd>noh<CR>")
 
+vim.keymap.set("n", "<leader>gc", function()
+  require("treesitter-context").go_to_context(vim.v.count1)
+end, { silent = true })
