@@ -20,6 +20,14 @@ return {
                     },
                 },
             },
+            pickers = {
+                grep_string = {
+                    mappings = {
+                        i = { ["<c-f>"] = require('telescope.actions').to_fuzzy_refine },
+                        n = { ["<c-f>"] = require('telescope.actions').to_fuzzy_refine },
+                    },
+                }
+            },
         })
 
         telescope.load_extension('live_grep_args')
